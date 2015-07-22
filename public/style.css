@@ -1,0 +1,194 @@
+
+
+body {
+	position: relative;
+	min-width: 916px;
+	min-height: 430px;
+}
+
+.letters {
+	font-size: 70;
+	font-weight: bold;
+	letter-spacing: 20;
+	font-family: Courier;
+	color: blue;
+	position: relative;
+	display: inline;
+	line-height: 1;
+	cursor: pointer;
+	cursor: hand;
+
+
+}
+
+.word_letters {
+	font-size: 70;
+	font-weight: bold;
+	letter-spacing: 20;
+	font-family: courier;
+	position: relative;
+	display: inline;
+	line-height: 1;
+	cursor: pointer;
+	cursor: hand;
+	letter-spacing: .5;
+	color: green;
+	position: relative;
+
+}
+
+.letter_container {
+	position: absolute;
+	bottom: 45;
+	left: 50%;
+	margin-left: -140px;
+
+
+}
+
+#nick {
+	width: 350;
+	position: absolute;
+	left: 50%;
+	margin-left: -190;
+	margin-top: 50;
+
+
+}
+
+#word_container {
+/*	display: inline-block;
+	padding-top: 100;*/
+	position: absolute;
+	bottom: 50%;
+	left: 50%;
+	right: 50%;
+	margin-left: -175;
+
+
+}
+
+/*#word {
+	font-size: 70;
+	font-weight: bold;
+	letter-spacing: .5;
+	font-family: courier;
+	color: green;
+	position: relative;
+	display: inline;
+	line-height: 1;
+
+}*/
+
+
+#top {
+	position: relative;
+}
+
+#bottom {
+	position: relative;
+	bottom: 0;
+}
+
+.top_scores {
+	width: 300;
+	margin: 20px 20px 20px 10px;
+	float: right;
+	font-family: Ubuntu;
+
+
+}
+
+.words {
+	
+	padding: 20;
+	width: 300;
+	float: left;
+	font-family: Ubuntu;
+	font-size: 16;
+}
+
+.controls {
+	position: absolute;
+	bottom: 0;
+	font-family: Ubuntu;
+
+}
+
+#current_score {
+	font-size: 50;
+	color: gold;
+	position: absolute;
+	bottom: 68px;
+	right: 60px;
+}
+
+#fb {
+	position: absolute;
+	bottom: 50px;
+	right: 105px;
+
+}
+
+.wordOrName {
+display: inline-block;
+}
+
+.number {
+	display: inline-block;
+	float: right;
+}
+
+#timer {
+	display: inline-block;
+	color: grey;
+	left: 44%;
+	font-weight: bold;
+	font-size: 50;
+	position: absolute;
+}
+
+#all_time {
+	font-family: Ubuntu;
+	font-size: 20;
+	margin-left: -150;
+	position: absolute;
+	padding: 20, 0, 0, 0;
+	left: 50%;
+}
+
+
+#title {
+	position: absolute;
+	left: 50%;
+	margin-left: -109;
+	margin-top: 11;
+	color: red;
+}
+
+#rules {
+	position: absolute;
+	width: 500;
+	left:50%;
+	margin-left: -250px;
+	margin-top: 50;
+	font-family: Ubuntu;
+	font-size: 20;
+}
+
+#contact {
+display: inline-block;
+position: absolute;
+right: 21;
+top: 27;
+font-size: 10;
+opacity: .8;
+
+}
+
+#place {
+	font-size: 12;
+	opacity: .7;
+	display: inline-block;
+
+}
