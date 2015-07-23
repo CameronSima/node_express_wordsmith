@@ -5,9 +5,17 @@
 	"dependencies": {
 		"socket.io": "latest",
 		"express": "latest",
-		"handlebars": "latest"
+		"handlebars": "latest",
+		"passport": "latest",
+		"passport-local": "latest",
+		"consolidate": "latest",
+		"mongoose": "latest",
+		"cookie-parser": "latest",
+		"express-session": "latest",
+		"morgan": "latest",
+		"connect-flash": "latest",
+		"bcrypt-nodejs": "latest",
+		"body-parser": "latest"
 		},
 		"author": "Cameron Sima"
-
-	
 }
