@@ -21,6 +21,7 @@ app.use(bodyParser.urlencoded());
 
 app.use(cookieParser()); // read cookies (needed for auth)
 
+
  // Using the flash middleware provided by connect-flash to store messages in session
  // and displaying in templates. socket.io instead???
 var flash = require('connect-flash');
@@ -48,5 +49,9 @@ var io = require('socket.io').listen(app.listen(port));
 io.sockets.on('connection', function (socket) {
 	socket.emit('greeting', { greeting: "Welcome to room 3453!"})
 });
+
+// module containing game logic
+// logic = require('./logic');
+// module.exports = logic;
 
 module.exports = app;

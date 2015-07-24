@@ -1,12 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var logic = require('../logic');
+var Score = require('../models/scores')
 
-ls = new logic.letterSet;
-console.log(ls.generate())
 
-// As with any middleware it is quintessential to call next()
-// if the user is authenticated
 var isAuthenticated = function (req, res, next) {
   if (req.isAuthenticated())
     return next();
@@ -15,14 +12,34 @@ var isAuthenticated = function (req, res, next) {
 
 module.exports = function (passport) {
 
+	// GET main page
 	router.get('/', function(request, response) {
-		response.render('page');
+		letterset = new logic.letterSet().generate();
+		response.render('page', { letterset: JSON.stringify(letterset) });
 
 	});
 
+	// POST main page
+	router.post('/', function (req, res) {
+		var r = req.body;
+		if (r.new_letters) {
+			letterset = new logic.letterSet().generate();
+			res.send(JSON.stringify(letterset))
+		}
+		
+
+		console.log(r)
+		console.log(res)
+		if (logic.checkScore(r.words, r.score, 
+							 letterset, r.bonus, r.time)) {
+			console.log("OK")
+		}
+		res.end()
+	})
+
 	// GET login page
-	router.get('/login', function(req, res) {
-		console.log(req, res)
+	router.get('/login', function (req, res) {
+		//console.log(req, res)
 		res.render('login', { message: req.flash('message')});
 	});
 
@@ -34,7 +51,7 @@ module.exports = function (passport) {
 	}));
 
 	// GET registration page
-	router.get('/signup', function(req, res) {
+	router.get('/signup', function (req, res) {
 		res.render('register', { message: req.flash('message')});
 	});
 
@@ -46,13 +63,13 @@ module.exports = function (passport) {
 	}));
 
 	/* Handle Logout */
-	router.get('/signout', function(req, res) {
+	router.get('/signout', function (req, res) {
 	  req.logout();
 	  res.redirect('/');
 });
 
 		/* GET Home Page */
-	router.get('/home', isAuthenticated, function(req, res){
+	router.get('/home', isAuthenticated, function (req, res){
 	  res.render('home', { user: req.user });
 	});
 	 
