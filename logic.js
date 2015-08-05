@@ -175,7 +175,7 @@ function score(word) {
  			};
  		})
 		}
-
+console.log(r)
 	if (r.length > 0) {
 		return false;
 	}

@@ -3,7 +3,6 @@ var router = express.Router();
 var logic = require('../logic');
 var Score = require('../models/scores')
 
-
 var isAuthenticated = function (req, res, next) {
   if (req.isAuthenticated())
     return next();
@@ -14,25 +13,50 @@ module.exports = function (passport) {
 
 	// GET main page
 	router.get('/', function(request, response) {
-		letterset = new logic.letterSet().generate();
-		response.render('page', { letterset: JSON.stringify(letterset) });
-
+		Score.find().sort({'score': 'desc'}).limit(5).exec(function(err, score) {
+	if (err) {
+		console.log(err);
+		return;
+	}
+	if (request.user) {
+		var loggedInUser = request.user.username;
+	} else {
+		var loggedInUser = false;
+	}
+	;
+	var letterset = new logic.letterSet().generate();
+		response.render('page', { letterset: JSON.stringify(letterset),
+								  scores:  score,
+								  loggedInUser: loggedInUser});
+})
 	});
 
 	// POST main page
 	router.post('/', function (req, res) {
 		var r = req.body;
-		if (r.new_letters) {
-			letterset = new logic.letterSet().generate();
-			res.send(JSON.stringify(letterset))
-		}
-		
 
-		console.log(r)
-		console.log(res)
-		if (logic.checkScore(r.words, r.score, 
+		// send new letters instead of reloading 
+		// the whole page.
+
+		// if (r.new_letters) {
+		// 	letterset = new logic.letterSet().generate();
+		// 	res.send(JSON.stringify(letterset))
+		// }
+
+		// don't enter scores if no words were submitted,
+		// or if data doesn't pass cheat tests.
+		if (r.words && logic.checkScore(r.words, r.score, 
 							 letterset, r.bonus, r.time)) {
-			console.log("OK")
+			
+			var score = new Score({ player_name: r.name,
+									score: r.score,
+									score_date: Date.now() });
+
+			score.save(function (error) {
+				if (error) {
+					console.log(error)
+				};
+			})
 		}
 		res.end()
 	})
@@ -50,9 +74,14 @@ module.exports = function (passport) {
 		failureFlash : true
 	}));
 
+	router.get('/logout', function (req, res) {
+		req.logout();
+		res.redirect('/');
+	})
+
 	// GET registration page
 	router.get('/signup', function (req, res) {
-		res.render('register', { message: req.flash('message')});
+		res.render('register', { error: req.flash('error')});
 	});
 
 	// Handle registration POST

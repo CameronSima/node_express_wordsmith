@@ -192,3 +192,21 @@ opacity: .8;
 	display: inline-block;
 
 }
+
+.btn-primary {
+	width: 40%;
+}
+
+.btn-success {
+	width: 40%;
+	float: left;
+}
+
+.modal-title {
+	color: red;
+}
+
+#error {
+	color: red;
+	font-size: 20;
+}

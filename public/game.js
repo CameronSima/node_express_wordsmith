@@ -247,7 +247,82 @@ var values = {
     }, word_list_count = 0,
     Words = {};
     var ended = false;
-sessionStorage.getItem("username") ? start() : bootbox.prompt("Name:", function(e) {
-    e.length > 15 && (e = e.slice(0, 15)), sessionStorage.setItem("username", e || "Unnamed Player"), start()
-});
 
+
+var initialModal = function () { bootbox.dialog({
+                title: "Wordsmith.es",
+                message: '<div class="row">  ' +
+                    '<div class="col-md-12"> ' +
+                    '<form class="form-horizontal"> ' +
+                    '<div class="form-group"> ' +
+                    '<label class="col-md-4 control-label" for="name">Just Play</label> ' +
+                    '<div class="col-md-4"> ' +
+                    '<input id="name" name="name" type="text" placeholder="Your name" class="form-control input-md"> ' +
+                    '<span class="help-block">Or, <a href="http://localhost:3700/signup">signup</a>' +
+                    ' or <a href="http://localhost:3700/login">login</a> to track your multiplayer scores!</span> </div> ' +
+                    '</div> ' +
+
+
+                    '</div> </div>' +
+                    '</form> </div>  </div>',
+                buttons: {
+                    success: {
+                        label: "1 Player",
+                        className: "btn-success",
+                        callback: function () {
+                            var username = $('#name').val();
+                            sessionStorage.setItem('username', username) || 'Unnamed Player';
+                            start();
+                        }
+                    },
+                    multiplayer: {
+                        label: "Multiplayer"
+
+                    }
+                }
+            }
+        );
+}
+
+var loggedInModal =  function () { bootbox.dialog({
+                title: "Wordsmith.es",
+                message: 
+                     
+                    '<span class="help-block">Play against the clock or other users online! ' +
+                    '</span> </div></div> ' +
+                    '</div> </div>' +
+                    '</form> </div>  </div>',
+                buttons: {
+                    success: {
+                        label: "1 Player",
+                        className: "btn-success",
+                        callback: function () {
+                            var username = $('#name').val();
+                            sessionStorage.setItem('username', loggedInUser);
+                            start();
+                        }
+                    },
+                    multiplayer: {
+                        label: "Multiplayer"
+
+                    }
+                }
+            }
+        );
+}
+
+// sessionStorage.getItem("username") ? start() : bootbox.prompt("Name:", function(e) {
+//     e.length > 15 && (e = e.slice(0, 15)), sessionStorage.setItem("username", e || "Unnamed Player"), start()
+// });
+
+// if user has already played and the browser
+// remembers his username, either logged in or as 'guest'
+if (sessionStorage.getItem("username")) {
+    start();
+} else if (typeof loggedInUser !== 'undefined') {
+
+// let logged in user choose single or multiplayer
+    loggedInModal();
+} else {
+    initialModal();
+}

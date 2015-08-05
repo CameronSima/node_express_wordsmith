@@ -19,21 +19,15 @@ module.exports = function(passport){
                     }
                     // already exists
                     if (user) {
-                        console.log('User already exists with username: '+username);
-                        return done(null, false, req.flash('message','User Already Exists'));
+                        
+                        return done(null, false, req.flash(
+                                        'error','Sorry, User ' +'"'+  username + '"' +' Already Exists'));
                     } else {
                         // if there is no user with that email
                         // create the user
                         var newUser = new User();
-
-                        // set the user's local credentials
                         newUser.username = username;
                         newUser.password = createHash(password);
-                        newUser.email = req.param('email');
-                        newUser.firstName = req.param('firstName');
-                        newUser.lastName = req.param('lastName');
-
-                        // save the user
                         newUser.save(function(err) {
                             if (err){
                                 console.log('Error in Saving user: '+err);  
@@ -47,7 +41,6 @@ module.exports = function(passport){
             };
             // Delay the execution of findOrCreateUser and execute the method
             // in the next tick of the event loop
-            console.log('NEXT')
             process.nextTick(findOrCreateUser);
 
         })

@@ -11,8 +11,13 @@
 
 	<body>
 		<script>
-			var letterset = {{{ letterset }}}
+			var letterset = {{{ letterset }}};
+			if ('{{{ loggedInUser }}}' !== 'false') {
+				var loggedInUser = '{{{ loggedInUser }}}';
+			}
+			console.log(loggedInUser)
 		</script>
+
 		<ul class="nav nav-tabs">
 		  <li role="presentation" class="active"><a href="/">Play</a></li>
 		  <li role="presentation"><a href="/scores">Scores</a></li>
@@ -22,10 +27,10 @@
 		</ul>
 		<div class="top_scores">
 			<ul class="list-group">
-				%for item in scores:
-			  <li class="list-group-item">
-			  <div class="wordOrName">{{ item.player_name }}</div><div class="number">{{ item.score }}</div></li>
-			  %end
+				{{#each scores}}
+				  <li class="list-group-item">
+				  <div class="wordOrName">{{ player_name }}</div><div class="number">{{ score }}</div></li>
+			  	{{/each}}
 			</ul>
 		</div>
 
