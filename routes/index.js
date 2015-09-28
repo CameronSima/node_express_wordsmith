@@ -18,16 +18,11 @@ module.exports = function (passport) {
 		console.log(err);
 		return;
 	}
-	if (request.user) {
-		var loggedInUser = request.user.username;
-	} else {
-		var loggedInUser = false;
-	}
-	;
+	
 	var letterset = new logic.letterSet().generate();
 		response.render('page', { letterset: JSON.stringify(letterset),
 								  scores:  score,
-								  loggedInUser: loggedInUser});
+								  loggedInUser: JSON.stringify(request.user)});
 })
 	});
 
@@ -97,11 +92,31 @@ module.exports = function (passport) {
 	  res.redirect('/');
 });
 
-		/* GET Home Page */
-	router.get('/home', isAuthenticated, function (req, res){
-	  res.render('home', { user: req.user });
+	router.get('/scores', function (req, res) {
+		Score.find().sort({'score': 'desc'}).limit(250).exec(function(error, score) {
+			if (error) {
+				console.log(error);
+				return
+			};
+			res.render('scores', {score: score});
+		});
 	});
-	 
+
+	router.get('/rules', function (req, res) {
+		res.render('rules');
+	});
+
+	router.get('/multiplayer',  function (req, res) {
+		if (!req.isAuthenticated()) {
+			res.redirect('/login');
+		} else {
+
+		var letterset = new logic.letterSet().generate();
+		res.render('multiplayer', { letterset: JSON.stringify(letterset),
+									loggedInUser: JSON.stringify(req.user)});
+		}
+	});
+
 	return router;
 
 

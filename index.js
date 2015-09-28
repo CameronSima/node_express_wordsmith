@@ -53,9 +53,10 @@ mongoose.connect(dbConfig.url);
 
 // socket.io
 var io = require('socket.io').listen(app.listen(port));
-io.sockets.on('connection', function (socket) {
-	socket.emit('greeting', { greeting: "Welcome to room 3453!"})
-});
+require('./routes/socket.js')(io);
+// io.sockets.on('connection', function (socket) {
+// 	socket.emit('greeting', { greeting: "Welcome to room 3453!"})
+// });
 
 // module containing game logic
 // logic = require('./logic');
