@@ -42,7 +42,7 @@
 			<ul class="list-group" id="words_list"></ul>
 		</div>
 
-			<div id="message_box">Message</div>
+			<div id="message_box"></div>
 			<div id="word_container"></div>
 
 			<div id="invalid_word"></div>
@@ -89,9 +89,13 @@
 </body>
 </html>
 
+
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/bootbox.min.js"></script>
-	<script src="/game.js"></script>
+	<script src="/multiplayer.js"></script>
 	<script src="/dict_obj.js"></script>
 	<!-- handles multiplayer connectivity -->
 	<script src="/socket.js"></script>
+	<script>
+		var socket = io.connect('http://localhost:3700');
+	</script>

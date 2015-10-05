@@ -146,6 +146,7 @@ display: inline-block;
 	font-weight: bold;
 	font-size: 50;
 	position: absolute;
+	margin-top: 27;
 }
 
 #all_time {
@@ -209,4 +210,13 @@ opacity: .8;
 #error {
 	color: red;
 	font-size: 20;
+}
+
+#message_box {
+	font-family: Ubuntu;
+	font-size: 20;
+	color: peru;
+	position: absolute;
+	left: 50%;
+	margin-left: -130;
 }
