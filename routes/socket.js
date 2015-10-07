@@ -1,10 +1,9 @@
 module.exports = function (io) {
 
-	// var players = {};
-	// var games = {};
-	// var clients = [];
 	var waitingClient = null;
 	var scores = [];
+	var User = require('../models/user');
+    var winner, loser, tie;
 
     io.sockets.on('connection', function (client) {
     	client.on('disconnect', function() {
@@ -17,7 +16,7 @@ module.exports = function (io) {
     	});
 
     	client.on('submitScores', function (data) {
-    		var winner, loser, tie;
+
     		scores.push(data);
     		if (scores.length == 2) {
     			if (scores[0].score > scores[1].score) {
@@ -32,14 +31,35 @@ module.exports = function (io) {
     			if (scores[0].score == scores[1].score) {
     				tie = true;
     			};
+
     			scores = [];
-    		}
-    		console.log(winner);
-    		console.log(loser);
+
+    			// save the results of the game to the players' user objects
+    			User.find({ "username": winner.username}), function (err, user) {
+		    			if (err) {
+		    				console.log(err);
+		    			} else {
+			    			user.wins += 1;
+			    			user.save;
+		    		};
+		    			
+	    		};
+
+    			User.find({ "username": loser.username}), function (err, user) {
+		    			if (err) {
+		    				console.log(err);
+		    			} else {
+		    				user.losses += 1;
+		    				user.save;	
+		    				
+	    		};
+    		};
+
     		client.emit('endGame', {winner: winner, loser: loser, tie: tie});
     		client.partner.emit('endGame', {winner: winner, loser: loser, tie: tie});
-    		
-    	});
+		}
+
+    		});
         
         // client.on('joinRoom', function (room) {
         // 	client.join(room);
