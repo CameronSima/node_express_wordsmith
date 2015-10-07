@@ -220,3 +220,11 @@ opacity: .8;
 	left: 50%;
 	margin-left: -130;
 }
+
+.bootbox-body > p {
+	color: peru;
+	font-size: 20;
+	text-align: center;
+	left: 50%;
+
+}

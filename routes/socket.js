@@ -17,27 +17,37 @@ module.exports = function (io) {
     	});
 
     	client.on('submitScores', function (data) {
+    		var winner, loser, tie;
     		scores.push(data);
     		if (scores.length == 2) {
     			if (scores[0].score > scores[1].score) {
     				winner = scores[0];
     				loser = scores[1];
-    			} else {
+    				tie = null;
+    			 } else {
     				winner = scores[1];
     				loser = scores[0];
+    				tie = null;
     			}
+    			if (scores[0].score == scores[1].score) {
+    				tie = true;
+    			};
+    			scores = [];
     		}
-    		client.emit('endGame', {winner: winner, loser: loser});
-    		client.partner.emit('endGame', {winner: winner, loser: loser});
+    		console.log(winner);
+    		console.log(loser);
+    		client.emit('endGame', {winner: winner, loser: loser, tie: tie});
+    		client.partner.emit('endGame', {winner: winner, loser: loser, tie: tie});
+    		
     	});
         
-        client.on('joinRoom', function (room) {
-        	client.join(room);
-        });
+        // client.on('joinRoom', function (room) {
+        // 	client.join(room);
+        // });
 
-        client.on('toRoom', function (room, event, msg) {
-        	io.to(room).emit(event, msg);
-        });
+        // client.on('toRoom', function (room, event, msg) {
+        // 	io.to(room).emit(event, msg);
+        // });
 
         client.on('joinGame', function (user) {
       
@@ -63,7 +73,11 @@ module.exports = function (io) {
         		waitingClient.username = user.username;
         		// store player one's letterset so both players 
         		// use the same letterset 
+        		if (user.letters) {
         		waitingClient.letters = user.letters;
+        		} else {
+        			client.emit('getLetterSet');
+        		}
         	}
         });
 

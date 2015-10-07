@@ -72,7 +72,7 @@ function shuffle() {
 }
 
 function timer() {
-	var seconds = 120;
+	var seconds = 7;
 	var interval = setInterval(function() {
 		if (window.ended == true) {
 			return;
@@ -120,9 +120,6 @@ function submit_word() {
     })
 }
 
-function determineWinner() {
-
-}
 
 function animationsTest(e) {
     var t = setInterval(function() {
@@ -148,21 +145,21 @@ function end_game() {
 	var score = get_current_score();
     window.ended = true;
     username = loggedInUser.username || sessionStorage.getItem("username") || "Unnamed player";
-    $.ajax({
-        type: "POST",
-        url: "http://localhost:3700/",
-        dataType: "json",
-        async: !1,
-        contentType: "application/json",
-        // success: function(items){alert(items)},
-        data: JSON.stringify({
-            score: score,
-            bonus: bonusTime(),
-            time: document.getElementById("timer").innerHTML,
-            name:  username,
-            words: sortedWords().reverse().slice(0, 8)
-        })
-    });
+    // $.ajax({
+    //     type: "POST",
+    //     url: "http://localhost:3700/",
+    //     dataType: "json",
+    //     async: !1,
+    //     contentType: "application/json",
+    //     // success: function(items){alert(items)},
+    //     data: JSON.stringify({
+    //         score: score,
+    //         bonus: bonusTime(),
+    //         time: document.getElementById("timer").innerHTML,
+    //         name:  username,
+    //         words: sortedWords().reverse().slice(0, 8)
+    //     })
+    // });
     socket.emit('submitScores', {score: score,
     							username: username});
     for (var t = document.getElementsByClassName("letters"), n = t.length - 1; n >= 0; n--) t[n].onclick = "";
@@ -170,11 +167,17 @@ function end_game() {
 }
 
 function displayWinnerModal(results) {
-    bootbox.alert("<p>" + results.winner.username + " wins!</p><p>" + results.winner.score+" - " +results.loser.score+"</p>Play again?</p>", function() {
+    bootbox.alert("<p>" + results.winner.username + " wins!</p><p>" + results.winner.score+" - " +results.loser.score+"</p><p>Play again?</p>", function() {
     window.location.reload()
 
     })
 
+}
+
+function displayTieModal (results) {
+	bootbox.alert('<p>Tie!</p><p>' + results.winner.score + " - " + results.loser.score + "</p><p>Play again?</p>", function() {
+    window.location.reload()
+	})
 }
 
 function counter(e) {
