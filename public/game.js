@@ -274,7 +274,10 @@ var initialModal = function () { bootbox.dialog({
                         }
                     },
                     multiplayer: {
-                        label: "Multiplayer"
+                        label: "Multiplayer",
+                        callback: function () {
+                            window.location = "http://localhost:3700/multiplayer"
+                        }
 
                     }
                 }

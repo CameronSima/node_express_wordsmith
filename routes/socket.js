@@ -16,7 +16,6 @@ module.exports = function (io) {
     	});
 
     	client.on('submitScores', function (data) {
-
     		scores.push(data);
     		if (scores.length == 2) {
     			if (scores[0].score > scores[1].score) {
@@ -34,29 +33,44 @@ module.exports = function (io) {
 
     			scores = [];
 
-    			// save the results of the game to the players' user objects
-    			User.find({ "username": winner.username}), function (err, user) {
+    			// save the results of the game to the players' user objects in db
+    			if (winner !== loser) {
+    			User.findOne({ "username": winner.username}, function (err, user) {
 		    			if (err) {
 		    				console.log(err);
 		    			} else {
+		    				if (!tie) {
 			    			user.wins += 1;
-			    			user.save;
+			    			user.save(function (err) {
+			    				if (err) throw err;
+			    			});
+			    		} else {
+			    			user.draw += 1
+			    		};
 		    		};
 		    			
-	    		};
+	    		});
 
-    			User.find({ "username": loser.username}), function (err, user) {
+    			User.findOne({ "username": loser.username}, function (err, user) {
 		    			if (err) {
 		    				console.log(err);
 		    			} else {
+		    				if (!tie) {
 		    				user.losses += 1;
-		    				user.save;	
-		    				
+		    				user.save(function (err) {
+		    					if (err) throw err;
+		    				});	
+		    			} else {
+		    				user.draw += 1;
+		    			};
+		    					
 	    		};
+    		});
     		};
 
     		client.emit('endGame', {winner: winner, loser: loser, tie: tie});
     		client.partner.emit('endGame', {winner: winner, loser: loser, tie: tie});
+
 		}
 
     		});

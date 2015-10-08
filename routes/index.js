@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var logic = require('../logic');
 var Score = require('../models/scores')
+var User = require('../models/user')
 
 var isAuthenticated = function (req, res, next) {
   if (req.isAuthenticated())
@@ -93,14 +94,22 @@ module.exports = function (passport) {
 });
 
 	router.get('/scores', function (req, res) {
+		User.find().sort({'wins': 'desc'}).limit(250).exec(function(error, mult_score) {
+			if (error) {
+				console.log(error);
+				return
+			};
+
 		Score.find().sort({'score': 'desc'}).limit(250).exec(function(error, score) {
 			if (error) {
 				console.log(error);
 				return
 			};
-			res.render('scores', {score: score});
+			res.render('scores', {score: score, mult_score: mult_score});
+
 		});
 	});
+	})
 
 	router.get('/rules', function (req, res) {
 		res.render('rules');
@@ -110,10 +119,13 @@ module.exports = function (passport) {
 		if (!req.isAuthenticated()) {
 			res.redirect('/login');
 		} else {
+		console.log(req.user);
 
 		var letterset = new logic.letterSet().generate();
 		res.render('multiplayer', { letterset: JSON.stringify(letterset),
-									loggedInUser: JSON.stringify(req.user)});
+									loggedInUser: JSON.stringify(req.user),
+									// non-stringified user object for displaying data in template
+									playerRecord: req.user});
 		}
 	});
 

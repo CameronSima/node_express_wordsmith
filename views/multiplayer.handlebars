@@ -23,15 +23,27 @@
 		  <div id="title">W O R D S M I T H . E S</div>
 		  <div id='contact'>info@wordsmith.es</div>
 		</ul>
-		<div class="top_scores">
+
+		<div class="right_panel" id="stats">
 			<ul class="list-group">
 				{{#each scores}}
 				  <li class="list-group-item">
 				  <div class="wordOrName">{{ player_name }}</div><div class="number">{{ score }}</div></li>
 			  	{{/each}}
 			</ul>
+			<div class="panel panel-default">
+		  <div class="panel-body">
+
+		    <p>{{playerRecord.username}}</p>
+
+		   <p> Wins: {{playerRecord.wins}}</p>
+		    <p>Losses: {{playerRecord.losses}}</p>
+		    <p>Draw: {{playerRecord.draw}}</p>
+		  </div>
+		</div>
 		</div>
 
+		
 			<div id="fb">
 
 		<div class="fb-like" data-href="http://www.wordsmith.es" data-width="30" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div>
@@ -43,6 +55,7 @@
 		</div>
 
 			<div id="message_box"></div>
+
 			<div id="word_container"></div>
 
 			<div id="invalid_word"></div>

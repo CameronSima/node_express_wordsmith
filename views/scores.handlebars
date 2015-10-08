@@ -19,13 +19,26 @@
 </ul>
 
 
-<div class="top_scores" id="all_time">
+<div class="all_time" id="one_player">
+	<div class="scoreboard_heading">Single Player</div>
 	<ul class="list-group">
 		{{#each score}}
 	  <li class="list-group-item">
 	  <div id="place"> {{@index}} &nbsp </div>
 	  <div class="wordOrName">{{ player_name }}</div>
 	  	   <div class="number">{{ score }}</div></li>
+	  	{{/each}}
+	</ul>
+</div>
+
+<div class="all_time" id="multiplayer">
+	<div class="scoreboard_heading">Multiplayer</div>
+	<ul class="list-group">
+		{{#each mult_score}}
+	  <li class="list-group-item">
+	  <div id="place"> {{@index}} &nbsp </div>
+	  <div class="wordOrName">{{ username }}</div>
+	  	   <div class="number">{{ wins }}</div></li>
 	  	{{/each}}
 	</ul>
 </div>

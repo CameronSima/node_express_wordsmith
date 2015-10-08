@@ -10,7 +10,6 @@ var port = 3700;
 
 var app = express();
 
-
 // view engine
 app.set('views', __dirname + '/views/');
 app.set('view engine', 'handlebars');
@@ -36,7 +35,7 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
  // Using the flash middleware provided by connect-flash to store messages in session
- // and displaying in templates. socket.io instead???
+ // and displaying in templates. 
 var flash = require('connect-flash');
 app.use(flash());
 
@@ -54,12 +53,5 @@ mongoose.connect(dbConfig.url);
 // socket.io
 var io = require('socket.io').listen(app.listen(port));
 require('./routes/socket.js')(io);
-// io.sockets.on('connection', function (socket) {
-// 	socket.emit('greeting', { greeting: "Welcome to room 3453!"})
-// });
-
-// module containing game logic
-// logic = require('./logic');
-// module.exports = logic;
 
 module.exports = app;

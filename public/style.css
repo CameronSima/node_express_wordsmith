@@ -68,19 +68,6 @@ body {
 
 }
 
-/*#word {
-	font-size: 70;
-	font-weight: bold;
-	letter-spacing: .5;
-	font-family: courier;
-	color: green;
-	position: relative;
-	display: inline;
-	line-height: 1;
-
-}*/
-
-
 #top {
 	position: relative;
 }
@@ -90,13 +77,17 @@ body {
 	bottom: 0;
 }
 
-.top_scores {
+.right_panel {
+	opacity: 0.75;
 	width: 300;
 	margin: 20px 20px 20px 10px;
 	float: right;
 	font-family: Ubuntu;
+}
 
-
+.top_scores {
+	width: 300;
+	margin: 20px 20px 20px 10px;
 }
 
 .words {
@@ -149,15 +140,25 @@ display: inline-block;
 	margin-top: 27;
 }
 
-#all_time {
+
+.all_time {
 	font-family: Ubuntu;
 	font-size: 20;
 	margin-left: -150;
 	position: absolute;
 	padding: 20, 0, 0, 0;
-	left: 50%;
+	width: 300;
+	margin: 20px 20px 20px 10px;
 }
 
+
+#one_player {
+	right: 15%;
+}
+
+#multiplayer {
+	left: 15%;
+}
 
 #title {
 	position: absolute;
@@ -205,6 +206,7 @@ opacity: .8;
 
 .modal-title {
 	color: red;
+	text-align: center;
 }
 
 #error {
@@ -228,3 +230,33 @@ opacity: .8;
 	left: 50%;
 
 }
+
+#stats.right_panel {
+	font-weight: bold;
+	letter-spacing: 1.7;
+	font-size: 13;
+}
+
+#stats > div > div > p {
+	display: inline;
+}
+
+#stats > div > div > p:nth-child(1) {
+	color: red;
+	
+}
+
+.scoreboard_heading {
+	text-align: center;
+	font-size: 19;
+	opacity: 0.7;
+	letter-spacing: .6;
+	font-weight: bold;
+	color: peru;
+	padding-bottom: 20;
+
+}
+
+
+
+
