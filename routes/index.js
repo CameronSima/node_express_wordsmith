@@ -119,7 +119,6 @@ module.exports = function (passport) {
 		if (!req.isAuthenticated()) {
 			res.redirect('/login');
 		} else {
-		console.log(req.user);
 
 		var letterset = new logic.letterSet().generate();
 		res.render('multiplayer', { letterset: JSON.stringify(letterset),

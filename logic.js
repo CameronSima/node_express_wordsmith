@@ -191,3 +191,4 @@ var checkScore = function (words, score, letterset, bonus, time) {
 
 exports.letterSet = letterSet;
 exports.checkScore = checkScore;
+exports.score = score;

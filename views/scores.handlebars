@@ -6,6 +6,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
 	</head>
 
 <body>
@@ -19,12 +20,13 @@
 </ul>
 
 
+
 <div class="all_time" id="one_player">
 	<div class="scoreboard_heading">Single Player</div>
 	<ul class="list-group">
 		{{#each score}}
 	  <li class="list-group-item">
-	  <div id="place"> {{@index}} &nbsp </div>
+	  <div id="place"> {{inc @index}} &nbsp </div>
 	  <div class="wordOrName">{{ player_name }}</div>
 	  	   <div class="number">{{ score }}</div></li>
 	  	{{/each}}
@@ -36,7 +38,7 @@
 	<ul class="list-group">
 		{{#each mult_score}}
 	  <li class="list-group-item">
-	  <div id="place"> {{@index}} &nbsp </div>
+	  <div id="place"> {{inc @index}} &nbsp </div>
 	  <div class="wordOrName">{{ username }}</div>
 	  	   <div class="number">{{ wins }}</div></li>
 	  	{{/each}}
@@ -62,4 +64,6 @@
 	}
 
 </script>
+		
+		<script src="template_helpers.js"></script>
 </html>

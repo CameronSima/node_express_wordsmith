@@ -13,6 +13,11 @@ var app = express();
 // view engine
 app.set('views', __dirname + '/views/');
 app.set('view engine', 'handlebars');
+var hbs = require('handlebars');
+hbs.registerHelper("inc", function(value, options)
+{
+    return parseInt(value) + 1;
+});
 app.engine('handlebars', engines.handlebars);
 
 app.use(express.static(__dirname + '/public'));

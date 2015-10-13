@@ -4,6 +4,7 @@ module.exports = function (io) {
 	var scores = [];
 	var User = require('../models/user');
     var winner, loser, tie;
+    var Bot = require('../bot/bot');
 
     io.sockets.on('connection', function (client) {
     	client.on('disconnect', function() {
@@ -101,6 +102,9 @@ module.exports = function (io) {
 
         		
         	} else {
+                var bot_player = new Bot.BotPlayer(user.letters, user);
+
+                
         		// else, set the client as waitingClient
         		client.emit('message', {message: "Waiting for opponent..."});
         		waitingClient = client;
@@ -112,6 +116,10 @@ module.exports = function (io) {
         		} else {
         			client.emit('getLetterSet');
         		}
+
+                // ***test bot functionality***
+                bot_player.play();
+
         	}
         });
 
