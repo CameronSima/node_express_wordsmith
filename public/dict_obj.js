@@ -167967,4 +167967,4 @@ ZYZZYVAS:  true
 
 	};
 
-exports.eng_dictionary = eng_dictionary;
+module.exports.eng_dictionary = eng_dictionary;

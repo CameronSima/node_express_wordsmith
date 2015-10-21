@@ -14,6 +14,9 @@ var app = express();
 app.set('views', __dirname + '/views/');
 app.set('view engine', 'handlebars');
 var hbs = require('handlebars');
+
+// custom helper for numbering scoreboard by
+// adding index += 1
 hbs.registerHelper("inc", function(value, options)
 {
     return parseInt(value) + 1;
@@ -58,5 +61,6 @@ mongoose.connect(dbConfig.url);
 // socket.io
 var io = require('socket.io').listen(app.listen(port));
 require('./routes/socket.js')(io);
+// require('./bot/bot.js')(io);
 
 module.exports = app;

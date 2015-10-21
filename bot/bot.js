@@ -91,15 +91,14 @@ function combinations(str) {
 //     return perms;
 // }
 
-var  BotPlayer = function (letterset, partner) {
-	this.letterSet = letterset;
+var  BotPlayer = function (partner) {
+	this.lifeForm = 'bot';
+	this.letterSet = partner.letters;
 	this.partner = partner;
 	this.username = function() {
 					return Names.botnames[Math.floor(
 							Math.random() * Names.botnames.length)];
 	}();
-
-
 
 	this.getValidWords = function() {
 		var validWords = [];
@@ -133,11 +132,8 @@ var  BotPlayer = function (letterset, partner) {
 
 	};
 	this.submitScore = function(score) {
-		module.exports = function (io) {
-			io.sockets.on('connection', function (client) {
-				this.partner.emit('message', {message: this.username + "'s score: " + score})
-			})
-		}
+
+		this.partner.emit('message', {message: this.username + "'s score: " + score})
 	};
 	this.play = function() {
 		var score = 0;
@@ -145,9 +141,14 @@ var  BotPlayer = function (letterset, partner) {
 		var _this = this;
 
 		function timer() {
+			if (_this.endGame) {
+				return;
+			};
 			var word = _this.selectWord(words);
-			_this.submitScore(word[1]);
+			console.log(word);
 			score += word[1];
+			_this.score = score;
+			_this.submitScore(score);
 
 
 			setTimeout(timer, getRandomInt(1000, 15000));
@@ -156,10 +157,7 @@ var  BotPlayer = function (letterset, partner) {
 	};
 };
 
-
-
-exports.BotPlayer = BotPlayer;
-
+module.exports.BotPlayer = BotPlayer;
 
 
 

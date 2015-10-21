@@ -8,16 +8,24 @@ module.exports = function (io) {
 
     io.sockets.on('connection', function (client) {
     	client.on('disconnect', function() {
-    		if (waitingClient == client ) 
+    		if (waitingClient == client) 
     			waitingClient = null;
     	});
 
     	client.on('score', function (score) {
-    		client.partner.emit('message', {message: client.username + "'s score: " + score});
-    	});
+            if (typeof client.partner == 'function') {
+            client.partner.emit('message', {message: client.username + "'s score: " + score});
+    	   }
+        });
 
     	client.on('submitScores', function (data) {
-    		scores.push(data);
+            scores.push(data);
+            if (client.partner.lifeForm == 'bot') {
+                scores.push({score: client.partner.score,
+                             username: client.partner.username});
+                client.partner.endGame = true;
+            }
+
     		if (scores.length == 2) {
     			if (scores[0].score > scores[1].score) {
     				winner = scores[0];
@@ -70,8 +78,12 @@ module.exports = function (io) {
     		};
 
     		client.emit('endGame', {winner: winner, loser: loser, tie: tie});
-    		client.partner.emit('endGame', {winner: winner, loser: loser, tie: tie});
 
+            // test if the player's partner is a bot. If not,
+            // emit end of game results.
+            if (typeof client.partner.emit === 'function') {
+    		client.partner.emit('endGame', {winner: winner, loser: loser, tie: tie});
+            };
 		}
 
     		});
@@ -102,9 +114,6 @@ module.exports = function (io) {
 
         		
         	} else {
-                var bot_player = new Bot.BotPlayer(user.letters, user);
-
-                
         		// else, set the client as waitingClient
         		client.emit('message', {message: "Waiting for opponent..."});
         		waitingClient = client;
@@ -118,9 +127,19 @@ module.exports = function (io) {
         		}
 
                 // ***test bot functionality***
-                bot_player.play();
+                setTimeout(function() {
+                    var botPlayer = new Bot.BotPlayer(waitingClient); 
+                    client.partner = botPlayer;
+                    client.emit('message', {message: "You have joined a game with " + botPlayer.username + "!"})
+                    client.emit('start');
+                    setTimeout(function() {
+                    botPlayer.play();
+                    }, 2000);
+                    
+                    waitingClient = null;
+                    }, 1000);
 
-        	}
+        	    };
         });
 
         client.on('toPartner', function (event, msg) {

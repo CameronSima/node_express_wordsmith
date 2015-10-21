@@ -72,7 +72,7 @@ function shuffle() {
 }
 
 function timer() {
-	var seconds = 7;
+	var seconds = 30;
 	var interval = setInterval(function() {
 		if (window.ended == true) {
 			return;
