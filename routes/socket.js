@@ -134,10 +134,10 @@ module.exports = function (io) {
                     client.emit('start');
                     setTimeout(function() {
                     botPlayer.play();
-                    }, 2000);
+                    }, 4000);
                     
                     waitingClient = null;
-                    }, 1000);
+                    }, Bot.getRandomInt(5000, 15000));
 
         	    };
         });

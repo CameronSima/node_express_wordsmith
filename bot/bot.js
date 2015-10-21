@@ -158,6 +158,7 @@ var  BotPlayer = function (partner) {
 };
 
 module.exports.BotPlayer = BotPlayer;
+module.exports.getRandomInt = getRandomInt;
 
 
 
