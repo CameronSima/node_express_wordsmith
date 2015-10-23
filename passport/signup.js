@@ -30,7 +30,7 @@ module.exports = function(passport){
                         var botEntry = function () {
 for (var i=0; i<=n.botnames.length; i++) {
     var newUser = new User();
-    newUser.username = n.botnames[i] + ' TEST';
+    newUser.username = n.botnames[i];
     newUser.password = createHash("!" + n.botnames[i] + "BT" + i);
     console.log(newUser);
     newUser.save(function(err) {
