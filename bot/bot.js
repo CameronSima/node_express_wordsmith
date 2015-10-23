@@ -101,7 +101,6 @@ var  BotPlayer = function (partner) {
 	}();
 
 	this.getValidWords = function() {
-		console.log("GETTING WORDS LIST")
 		var validWords = [];
 		var possibleWords = combinations(letterSetObjToStr(this.letterSet));
 		for (var i=0; i<=possibleWords.length; i++) {
