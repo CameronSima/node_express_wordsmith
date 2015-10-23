@@ -1,5 +1,13 @@
+debug = false;
+
+if (debug) {
+    var url = 'http://localhost:3700';
+} else {
+    var url = 'http://wordsmith.es';
+};
+
 window.onload = function () {
-    var socket = io.connect('http://localhost:3700');
+    var socket = io.connect(url);
     var messageBox = document.getElementById('message_box');
 
  
