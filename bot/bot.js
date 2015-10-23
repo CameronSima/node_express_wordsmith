@@ -158,6 +158,12 @@ var  BotPlayer = function (partner) {
 			};
 			var word = _this.selectWord(this.validWords);
 			console.log(word);
+
+			// prevent the app from crashing if the bot 
+			// runs out of words.
+			if (typeof word === 'undefined') {
+				return;
+			};
 			score += word[1];
 			_this.score = score;
 			_this.submitScore(score);

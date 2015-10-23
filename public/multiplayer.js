@@ -80,7 +80,7 @@ function shuffle() {
 }
 
 function timer() {
-	var seconds = 120;
+	var seconds = 520;
 	var interval = setInterval(function() {
 		if (window.ended == true) {
 			return;
@@ -274,8 +274,8 @@ var initialModal = function () { bootbox.dialog({
                     '<label class="col-md-4 control-label" for="name">Just Play</label> ' +
                     '<div class="col-md-4"> ' +
                     '<input id="name" name="name" type="text" placeholder="Your name" class="form-control input-md"> ' +
-                    '<span class="help-block">Or, <a href='url + '/signup>signup</a>' +
-                    ' or <a href='url + '/login>login</a> to track your multiplayer scores!</span> </div> ' +
+                    '<span class="help-block">Or, <a href=' + url + '/signup>signup</a>' +
+                    ' or <a href=' + url + '/login>login</a> to track your multiplayer scores!</span> </div> ' +
                     '</div> ' +
                     '</div> </div>' +
                     '</form> </div>  </div>',
