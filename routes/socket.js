@@ -20,7 +20,7 @@ module.exports = function (io) {
 
     	client.on('submitScores', function (data) {
             scores.push(data);
-            if (client.partner.lifeForm == 'bot') {
+            if (client.partner.lifeForm) {
                 scores.push({score: client.partner.score,
                              username: client.partner.username});
                 client.partner.endGame = true;

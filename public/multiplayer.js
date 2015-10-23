@@ -1,4 +1,12 @@
-var socket = io.connect('http://localhost:3700');
+var debug = true;
+
+if (debug) {
+    var url = "http://localhost:3700";
+} else {
+    var url = "http://wordsmith.es"
+};
+
+var socket = io.connect(url);
 
 function select_letter(e) {
     build_word(e)
@@ -266,8 +274,8 @@ var initialModal = function () { bootbox.dialog({
                     '<label class="col-md-4 control-label" for="name">Just Play</label> ' +
                     '<div class="col-md-4"> ' +
                     '<input id="name" name="name" type="text" placeholder="Your name" class="form-control input-md"> ' +
-                    '<span class="help-block">Or, <a href="http://localhost:3700/signup">signup</a>' +
-                    ' or <a href="http://localhost:3700/login">login</a> to track your multiplayer scores!</span> </div> ' +
+                    '<span class="help-block">Or, <a href='url + '/signup>signup</a>' +
+                    ' or <a href='url + '/login>login</a> to track your multiplayer scores!</span> </div> ' +
                     '</div> ' +
                     '</div> </div>' +
                     '</form> </div>  </div>',
@@ -310,14 +318,14 @@ var loggedInModal =  function () { bootbox.dialog({
                         label: "Multiplayer",
                         className: "btn-success",
                         callback: function () {
-                            window.location = 'http://localhost:3700/multiplayer'
+                            window.location = url + '/multiplayer'
                         }
 
                     },
                     logout: {
                         label: "Logout",
                         callback: function () {
-                            window.location = "http://localhost:3700/logout"
+                            window.location = url + '/logout'
                         }
                     }
                 }
@@ -326,7 +334,7 @@ var loggedInModal =  function () { bootbox.dialog({
 }
 
 
-if (sessionStorage.getItem("username") || window.location.href == 'http://localhost:3700/multiplayer') {
+if (sessionStorage.getItem("username") || window.location.href == url + '/multiplayer') {
 
     // start();
 

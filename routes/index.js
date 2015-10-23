@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var logic = require('../logic');
-var Score = require('../models/scores')
-var User = require('../models/user')
+var Score = require('../models/scores');
+var User = require('../models/user');
+var letterset;
 
 var isAuthenticated = function (req, res, next) {
   if (req.isAuthenticated())
@@ -30,6 +31,7 @@ module.exports = function (passport) {
 	// POST main page
 	router.post('/', function (req, res) {
 		var r = req.body;
+		console.log(r);
 
 		// send new letters instead of reloading 
 		// the whole page.
@@ -45,7 +47,7 @@ module.exports = function (passport) {
 							 letterset, r.bonus, r.time)) {
 			
 			var score = new Score({ player_name: r.name,
-									score: r.score,
+									score: r.score + r.bonus,
 									score_date: Date.now() });
 
 			score.save(function (error) {
@@ -94,13 +96,13 @@ module.exports = function (passport) {
 });
 
 	router.get('/scores', function (req, res) {
-		User.find().sort({'wins': 'desc'}).limit(250).exec(function(error, mult_score) {
+		User.find().sort({'wins': 'desc'}).limit(100).exec(function(error, mult_score) {
 			if (error) {
 				console.log(error);
 				return
 			};
 
-		Score.find().sort({'score': 'desc'}).limit(250).exec(function(error, score) {
+		Score.find().sort({'score': 'desc'}).limit(100).exec(function(error, score) {
 			if (error) {
 				console.log(error);
 				return

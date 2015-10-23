@@ -101,6 +101,7 @@ var  BotPlayer = function (partner) {
 	}();
 
 	this.getValidWords = function() {
+		console.log("GETTING WORDS LIST")
 		var validWords = [];
 		var possibleWords = combinations(letterSetObjToStr(this.letterSet));
 		for (var i=0; i<=possibleWords.length; i++) {
@@ -112,39 +113,51 @@ var  BotPlayer = function (partner) {
 		return validWords;
 	};
 	this.formatWords = function() {
-		// Return 3 arrays of words (low, medium, high)
+		// Return 3 arrays of words (low, medium, high);
+		// To do: give bot low, medium, and hard difficulty
+		// settings.
 		var validWords = this.getValidWords();
 		var validWordsSorted = validWords.sort(sort2DArray);
 		var arrays = splitArray(validWordsSorted, 3);
 		return arrays
 	};
-	this.selectWord = function(words) {
-		var low = words[0];
-		var medium = words[1];
-		var high = words[2];
-		var pointsStratified = [low, medium, high];
-		// return random points category
-		var cat = pointsStratified[Math.floor(
-						Math.random()*pointsStratified.length)]
-		// return random word within that category
-		var word = cat[Math.floor(Math.random()*cat.length)]
+	// this.selectWord = function(words) {
+	// 	var low = words[0];
+	// 	var medium = words[1];
+	// 	var high = words[2];
+	// 	var pointsStratified = [low, medium, high];
+	// 	// return random points category
+	// 	var cat = pointsStratified[Math.floor(
+	// 					Math.random()*pointsStratified.length)]
+	// 	// return random word within that category
+	// 	var word = cat[Math.floor(Math.random()*cat.length)]
+	// 	return word;
+
+	// };
+
+	this.selectWord = function() {
+		var word = this.validWords[Math.floor(Math.random()*this.validWords.length)];
+		this.validWords = this.validWords.filter(function(item) {
+								return item != word;
+							});
 		return word;
 
 	};
 	this.submitScore = function(score) {
-
 		this.partner.emit('message', {message: this.username + "'s score: " + score})
+	
 	};
 	this.play = function() {
 		var score = 0;
-		var words = this.formatWords();
+		// var words = this.formatWords();
+		this.validWords = this.getValidWords();
 		var _this = this;
 
 		function timer() {
 			if (_this.endGame) {
 				return;
 			};
-			var word = _this.selectWord(words);
+			var word = _this.selectWord(this.validWords);
 			console.log(word);
 			score += word[1];
 			_this.score = score;
