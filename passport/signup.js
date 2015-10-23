@@ -27,22 +27,6 @@ module.exports = function(passport){
                     } else {
                         // if there is no user with that email
                         // create the user
-                        var botEntry = function () {
-for (var i=0; i<=n.botnames.length; i++) {
-    var newUser = new User();
-    newUser.username = n.botnames[i];
-    newUser.password = createHash("!" + n.botnames[i] + "BT" + i);
-    console.log(newUser);
-    newUser.save(function(err) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(n.botnames[i] + " SAVED");
-        }
-    })
-
-};
-}();
 
                         var newUser = new User();
                         newUser.username = username;
