@@ -1,4 +1,4 @@
-debug = true;
+debug = false;
 
 if (debug) {
     var url = 'http://localhost:3700';
