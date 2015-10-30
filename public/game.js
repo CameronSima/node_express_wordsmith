@@ -1,4 +1,4 @@
-var debug = false;
+var debug = true;
 
 if (debug) {
     var url = "http://localhost:3700";
@@ -276,9 +276,11 @@ var initialModal = function () { bootbox.dialog({
                         label: "1 Player",
                         className: "btn-success",
                         callback: function () {
+                            if (!username) {
                             var username = $('#name').val().slice(0, 15);
                             sessionStorage.setItem('username', username) || 'Unnamed Player';
                             start();
+                            };
                         }
                     },
                     multiplayer: {
@@ -305,7 +307,9 @@ var loggedInModal =  function () { bootbox.dialog({
                         label: "1 Player",
                         className: "btn-success",
                         callback: function () {
-                            var username = $('#name').val();
+                            // if (('#name').val()) {
+                            // var username = ('#name').val();
+                            // };
                             start();
                         }
                     },
@@ -338,7 +342,7 @@ if (sessionStorage.getItem("username") || window.location.href == url + '/multip
     // remembers his 'just play' username, start another
     // one player game.
     start();
-} else if (typeof loggedInUser !== 'undefined' && loggedInUser !== '') {
+} else if (typeof loggedInUser !== 'undefined' && loggedInUser !== '' && loggedInUser !== null) {
     // let logged in user choose single or multiplayer, or logout
     loggedInModal();
 

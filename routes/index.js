@@ -24,7 +24,7 @@ module.exports = function (passport) {
 	var letterset = new logic.letterSet().generate();
 		response.render('page', { letterset: JSON.stringify(letterset),
 								  scores:  score,
-								  loggedInUser: JSON.stringify(request.user)});
+								  loggedInUser: JSON.stringify(request.user || null)});
 })
 	});
 
