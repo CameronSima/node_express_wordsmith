@@ -80,7 +80,7 @@ function shuffle() {
 }
 
 function timer() {
-	var seconds = 120;
+	var seconds = 5;
 	var interval = setInterval(function() {
 		if (window.ended == true) {
 			return;
@@ -153,7 +153,7 @@ function end_game() {
 	var score = get_current_score();
     window.ended = true;
     username = loggedInUser.username || sessionStorage.getItem("username") || "Unnamed player";
-
+    console.log(username);
     socket.emit('submitScores', {score: score,
     							username: username});
     for (var t = document.getElementsByClassName("letters"), n = t.length - 1; n >= 0; n--) t[n].onclick = "";
@@ -338,7 +338,7 @@ if (sessionStorage.getItem("username") || window.location.href == url + '/multip
 
     // start();
 
-} else if (typeof loggedInUser !== 'undefined' && loggedInUser !== '') {
+} else if (typeof loggedInUser !== 'undefined' && loggedInUser !== '' && loggedInUser  !== null) {
     // let logged in user choose single or multiplayer, or logout
     loggedInModal();
 
