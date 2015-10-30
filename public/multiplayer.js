@@ -80,7 +80,7 @@ function shuffle() {
 }
 
 function timer() {
-	var seconds = 5;
+	var seconds = 120;
 	var interval = setInterval(function() {
 		if (window.ended == true) {
 			return;
