@@ -1,11 +1,11 @@
-var express = 		require('express');
-var engines = 		require('consolidate');
-var mongoose = 		require('mongoose');
-var passport = 		require('passport');
-var cookieParser = 	require('cookie-parser');
-var bodyParser =	require('body-parser');
-var session = 		require('express-session');
-var flash = 		require('connect-flash');
+var express =           require('express');
+var engines =           require('consolidate');
+var mongoose =          require('mongoose');
+var passport =          require('passport');
+var cookieParser =      require('cookie-parser');
+var bodyParser =        require('body-parser');
+var session =           require('express-session');
+var flash =             require('connect-flash');
 var port = 3700;
 
 var app = express();
@@ -32,18 +32,19 @@ app.use(cookieParser()); // read cookies (needed for auth)
 
 
 // required for passport
-app.use(session({ secret: 'cjisadickler', resave: true, saveUninitialized: true})); // session secret
+app.use(session({ secret: 'cjisadickler', resave: true, saveUninitialized: true})); // ses$
 
 // used to pass session to template if necessary
-app.use(function(req, res, next) {
-	res.locals.session = req.session;
-	next();
-});
+// app.use(function(req, res, next) {
+//      res.locals.session = req.session;
+//      next();
+// });
+
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
  // Using the flash middleware provided by connect-flash to store messages in session
- // and displaying in templates. 
+ // and displaying in templates.
 var flash = require('connect-flash');
 app.use(flash());
 
