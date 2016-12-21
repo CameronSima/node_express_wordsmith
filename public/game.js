@@ -152,7 +152,6 @@ function end_game() {
         type: "POST",
         url: url,
         dataType: "json",
-        async: !1,
         contentType: "application/json",
         // success: function(items){alert(items)},
         data: JSON.stringify({
