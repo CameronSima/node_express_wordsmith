@@ -159,7 +159,7 @@ function end_game() {
             score: e,
             bonus: bonusTime(),
             time: document.getElementById("timer").innerHTML,
-            name:  loggedInUser.username || sessionStorage.getItem("username") || "Unnamed player",
+            name:  loggedInUser ? loggedInUser.username : sessionStorage.getItem("username") || "Unnamed player",
             words: sortedWords().reverse().slice(0, 8)
         })
     });
