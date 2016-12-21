@@ -162,6 +162,7 @@ function score(word) {
  }
 
  var testLettersInLetterset = function (words, letterset) {
+ 	words = words ? words : []
  	lsetarray = [];
 
  	for (key in letterset) {

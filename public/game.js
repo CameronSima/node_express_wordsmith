@@ -159,7 +159,7 @@ function end_game() {
             bonus: bonusTime(),
             time: document.getElementById("timer").innerHTML,
             name:  loggedInUser ? loggedInUser.username : sessionStorage.getItem("username") || "Unnamed player",
-            words: sortedWords().reverse().slice(0, 8) || []
+            words: sortedWords().reverse().slice(0, 8)
         })
     });
     for (var t = document.getElementsByClassName("letters"), n = t.length - 1; n >= 0; n--) t[n].onclick = "";
